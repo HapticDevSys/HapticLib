@@ -8,7 +8,9 @@ author "Haptic"
 
 version "1.0.0"
 
-shared_script "shared/*.lua"
+shared_scripts {
+    "shared/*.lua",
+}
 
 
 client_scripts {
