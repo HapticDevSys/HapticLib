@@ -23,5 +23,33 @@ function functions.GenerateString(length)
         end
         id = id .. char
     end
+    if Config.Debug then
+		print("^2 [Haptic-Lib] - ^3 Random String -  " .. id)
+	end
     return id
 end
+
+function functions.SetFuel(veh, fuel)
+    exports[Config.FuelExport]:SetFuel(veh, fuel)
+    return true
+end
+
+RegisterNetEvent("HapticLib:Client:SetLockState")
+AddEventHandler("HapticLib:Client:SetLockState", function(veh, state)
+	print("1")
+	TriggerServerEvent('qb-vehiclekeys:server:setVehLockState', veh, state)
+end)
+
+
+RegisterNetEvent("HapticLib:Client:AquireKeys")
+AddEventHandler("HapticLib:Client:AquireKeys", function(plate)
+    TriggerServerEvent('qb-vehiclekeys:server:AcquireVehicleKeys', plate)
+	TriggerEvent("vehiclekeys:client:SetOwner", plate)
+end)
+
+
+
+RegisterNetEvent("HapticLib:Client:toggleDuty")
+AddEventHandler("HapticLib:Client:toggleDuty", function()
+    TriggerServerEvent("QBCore:ToggleDuty")
+end)

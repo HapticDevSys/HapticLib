@@ -25,6 +25,57 @@ function functions.GenerateString(length)
         end
         id = id .. char
     end
+    if Config.Debug then
+		print("^2 [Haptic-Lib] - ^3 Random String -  " .. id)
+	end
     return id
+end
+
+function functions.generateRandomNumber()
+    local number = ""
+    for i = 1, 10 do
+        number = number .. tostring(math.random(0, 9))
+    end
+    if Config.Debug then
+        print("^2 [Haptic-Lib] - ^3 Random Number -  " .. number)
+    end
+    return number
+end
+
+function functions.GetSteam(src)
+    local steamIdentifier = nil
+	-- Retrieve all identifiers of the player
+    for _, identifier in ipairs(GetPlayerIdentifiers(src)) do
+        if string.find(identifier, "steam:") then
+            steamIdentifier = identifier
+            break
+        end
+    end
+	if steamIdentifier then
+        --print("Steam identifier: " .. steamIdentifier)
+        return steamIdentifier
+    else
+        return false
+    end
+end
+
+function functions.GetLicense(src)
+    local Identifier = GetPlayerIdentifierByType(src, 'license')
+    return Identifier
+end
+
+function functions.ToggleBlackout(src)
+    exports["qb-weathersync"]:setBlackout();
+    return true
+end
+
+function functions.SetTime(src, time, min)
+    exports["qb-weathersync"]:setTime(time, min);
+    return true
+end
+
+function functions.SetWeather(src, weather)
+    exports["qb-weathersync"]:setWeather(weather);
+    return true
 end
 
